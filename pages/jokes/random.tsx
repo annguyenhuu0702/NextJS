@@ -17,6 +17,17 @@ const RandomJoke: React.FC<Props> = ({ joke }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const joke = await getRandomJoke();
+  // joke = false;
+  // if (!joke)
+  //   return {
+  //     notFound: true,
+  //   };
+  // return {
+  //   redirect: {
+  //     destination: '/posts',
+  //     permanent: false,
+  //   },
+  // };
   return {
     props: {
       joke,
