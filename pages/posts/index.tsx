@@ -30,7 +30,7 @@ const PostListPage: React.FC<Props> = ({ posts }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getPosts();
+  const posts = await getPosts(10);
   return {
     props: {
       posts,

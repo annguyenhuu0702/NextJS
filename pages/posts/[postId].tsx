@@ -1,6 +1,7 @@
 import React from 'react';
 import { getPostById, getPostId } from '../../lib/posts';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 
 interface Props {
   post: any;
@@ -11,6 +12,10 @@ interface Props {
 }
 
 const PostDetailPage: React.FC<Props> = ({ post }) => {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <p>{post.title}</p>
@@ -19,10 +24,11 @@ const PostDetailPage: React.FC<Props> = ({ post }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = await getPostId();
+  const paths = await getPostId(5);
+  console.log(paths);
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -32,6 +38,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
     props: {
       post,
     },
+    revalidate: 1,
   };
 };
 
