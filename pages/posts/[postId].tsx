@@ -1,10 +1,11 @@
-import { useRouter } from "next/dist/client/router";
-import * as React from "react";
+import { useRouter } from 'next/dist/client/router';
+import * as React from 'react';
 
 export interface PostDetailPageProps {}
 
 export default function PostDetailPage(props: PostDetailPageProps) {
   const router = useRouter();
+  console.log(router.query.postId);
 
   return (
     <div>
