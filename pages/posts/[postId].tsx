@@ -1,17 +1,38 @@
-import { useRouter } from 'next/dist/client/router';
-import * as React from 'react';
+import React from 'react';
+import { getPostById, getPostId } from '../../lib/posts';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
-export interface PostDetailPageProps {}
+interface Props {
+  post: any;
+  userId?: number;
+  id?: number;
+  title?: string;
+  body?: string;
+}
 
-export default function PostDetailPage(props: PostDetailPageProps) {
-  const router = useRouter();
-  console.log(router.query.postId);
-
+const PostDetailPage: React.FC<Props> = ({ post }) => {
   return (
     <div>
-      <h1>Post Detail Page</h1>
-
-      <p>Query: {JSON.stringify(router.query)}</p>
+      <p>{post.title}</p>
     </div>
   );
-}
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = await getPostId();
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+  const post = await getPostById(params.postId);
+  return {
+    props: {
+      post,
+    },
+  };
+};
+
+export default PostDetailPage;

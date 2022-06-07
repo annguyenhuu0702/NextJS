@@ -34,11 +34,9 @@ const Home: NextPage = () => {
           Get started by editing <code className={styles.code}>pages/index.tsx</code>
         </p>
 
-        <Link href="/about">
+        <Link href="/jokes/random">
           <a>Go to about</a>
         </Link>
-
-        <button onClick={goToDetailPage}>Go to page detail</button>
 
         {/* <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
